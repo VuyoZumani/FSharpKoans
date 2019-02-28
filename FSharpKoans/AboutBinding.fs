@@ -56,6 +56,8 @@ and the F# compiler will refuse to accept nonsensical code.
 *)
 
 module ``02: About Binding`` = 
+    open System
+
     // this should look like code that you're familiar with, perhaps from C#.
     [<Test>]
     let ``01 Basic 'let' binding`` () = 
@@ -139,10 +141,36 @@ module ``02: About Binding`` =
             3 + a
         let c = a + 4
         let a = a + a
-        a |> should equal __
-        b |> should equal __
-        c |> should equal __
+        a |> should equal 42
+        b |> should equal 11
+        c |> should equal 25
 
+    (*
+        The next test demonstrates *type inference*.
+        
+        Not all functional languages are typed.  The first (and, arguably, the most powerful)
+        functional language was Lisp, and Lisp isn't strongly typed.  Typing is something that tends
+        to work very well with functional programming, but isn't something that is essential to
+        functional programming.  In the case of F#, typing often stops you from making "silly" errors.
+
+        F# uses type inference extensively.  Type inference means that it tries to work out
+        (or "infer") what type a particular name is by looking at code around it.  A readable, if
+        simplified, explanation of how this works can be found at:
+        http://fsharpforfunandprofit.com/posts/type-inference/
+    *)
+   
+    [<Ignore("Move elsewhere")>]
+    let ``05 The type of symbols in variable patterns are inferred`` () = 
+        let x = 50
+        let y = "a string"
+        let z = -4.23
+        let a = false
+        let b = 't'
+        x |> should be ofType<int>
+        y |> should be ofType<FILL_ME_IN>
+        z |> should be ofType<FILL_ME_IN>
+        a |> should be ofType<FILL_ME_IN>
+        b |> should be ofType<FILL_ME_IN>
    
    (*
     What's a pattern?  A pattern is something that expresses the SHAPE of data.  Data may
@@ -155,35 +183,35 @@ module ``02: About Binding`` =
 
     [<Test>]
     let ``08 An identifier pattern will match anything`` () =
-        let x = __ // replace with an integer
-        let y = __ // replace with a string
-        let z = __ // replace with anything else!
+        let x = 5 // replace with an integer
+        let y ="Hello" // replace with a string
+        let z =5.90 // replace with anything else!
         x |> should be ofType<int>
         y |> should be ofType<string>
 
     [<Test>]
     let ``09 A wildcard pattern will match anything`` () =
-        let _ = __ // replace with an integer
-        let _ = __ // replace with a string
-        let _ = __ // replace with anything else!
+        let _ = 5 // replace with an integer
+        let _ = "Hello" // replace with a string
+        let _ =5.90 // replace with anything else!
         ()
 
     [<Test>]
     let ``10 Constant patterns succeed if both sides match`` () =
-        let 900 = __
-        let "Can't win all the time" = __
+        let 900 = 900
+        let "Can't win all the time" = "Can't win all the time"
         () // eh? what's this funny thing? It's called "unit", and you'll learn more about it in AboutUnit.fs later on.
 
     [<Test>]
     let ``11 Constant patterns fail if the sides don't match exactly`` () =
         (fun () ->
-            let "FILL ME IN" = FILL__ME_IN
+            let "FILL ME IN" = "FILL"//same type, but don't match
             ()
         ) |> should throw typeof<MatchFailureException>
 
     [<Test>]
     let ``12 Or patterns succeed if any pattern matches`` () =
-        let a | a = __
-        let 7 | 13 | 2 = 3 + __
-        let 'x' | _ | 'p' = __
+        let a | a = 2
+        let 7 | 13 | 2 = 3 + 10
+        let 'x' | _ | 'p' = 'p'
         ()
