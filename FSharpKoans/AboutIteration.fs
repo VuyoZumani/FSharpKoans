@@ -19,6 +19,7 @@ module ``05: To iterate is human; to recurse, divine`` =
         converge 3 10 1|> should equal 5
         converge 3 10 2|> should equal 6
         converge 3 10 100|> should equal 104
+  
 
     [<Test>]
     let ``02 Tail recursion stops a stack overflow from occurring`` () =
