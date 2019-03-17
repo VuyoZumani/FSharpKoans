@@ -74,7 +74,7 @@ module ``02: About Binding`` =
         let a = 5
         let b = 5.0
         let c = false
-        let d = "Hey"
+        let d = "Hello World!!"
         let e = 'H'
         let f = ()
         a |> should be ofType<int>
