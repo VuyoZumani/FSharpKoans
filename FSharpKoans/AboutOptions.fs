@@ -99,8 +99,8 @@ module ``11: Exploring types, options, and results`` =
             | _ -> Ok (sqrt n / m)
                 // 'sqrt' is the square-root function
                
-        f -6.0 2.5 |> should equal (Error NegativeNumberSupplied)
-        f 144.0 2.0 |> should equal (Ok 6.0)
-        f 7.3 0.0 |> should equal (Error DivisionByZero)
+        f -6.0 2.5 |> shouldEqual (Error NegativeNumberSupplied)
+        f 144.0 2.0 |> shouldEqual (Ok 6.0)
+        f 7.3 0.0 |> shouldEqual (Error DivisionByZero)
 
 
