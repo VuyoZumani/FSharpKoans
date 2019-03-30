@@ -61,5 +61,19 @@ module ``16: About You`` =
     [<Test>]
     let ``Where to now?`` () =
         let resources = ["http://fsharpforfunandprofit.com"; "http://fssnip.net"; "http://stackoverflow.com"]
-        let visited = ["http://fsharpforfunandprofit.com"; "http://fssnip.net"; "http://stackoverflow.com"] // <-- as you visit, add to a list here!
+        let visited =
+            let visitlist=[]// <-- as you visit, add to a list here!
+            let rec  asVisiting resources visitlist=
+                match resources with
+                |[]->                  
+                     let rev (xs : 'b list) : 'b list =
+            // write a function to reverse a list here.
+                        let rec innerF xs out =
+                         match xs with
+                         | [] -> out
+                         | a::rest -> innerF rest (a::out)
+                        innerF xs []
+                     rev visitlist
+                |a::rest-> asVisiting rest (a::visitlist)
+            asVisiting resources []
         visited |> should equal resources
